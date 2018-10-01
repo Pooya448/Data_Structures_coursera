@@ -7,7 +7,7 @@ using System.Linq;
 namespace A2Tests
 {
     [TestClass]
-    public class NaiveTest
+    public class A2Tests
     {
         [TestMethod]
         public void GradedTest_Stress()
