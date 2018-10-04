@@ -22,10 +22,10 @@ namespace A1.Tests
         }
 
         [TestMethod(), Timeout(1000)]
-        [DeploymentItem("TestData", "A0_TestData")]
+        [DeploymentItem("TestData", "A1_TestData")]
         public void GradedTest()
         {
-            TestTools.RunLocalTest("A0",Program.Process);
+            TestTools.RunLocalTest("A1",Program.Process);
         }
     }
 }
