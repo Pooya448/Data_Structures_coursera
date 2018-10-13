@@ -199,10 +199,6 @@ namespace A3
             return (Width * Length) % 10;
         }
 
-        public static void Print (long n)
-        {
-            Console.WriteLine(n.ToString());
-        }
 
         
 
