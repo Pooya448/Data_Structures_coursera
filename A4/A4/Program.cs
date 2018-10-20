@@ -76,43 +76,22 @@ namespace A4
 
             var NList = startTimes
                 .Zip(endTimes, (s, e) => new { Start = s, End = e, Range = e - s, Group = (long)0 })
-                .OrderBy(x => x.Range)
+                .OrderBy(x => x.End)
                 .ToList();
 
-            for (int i = 0; i < NList.Count; i++)
-                for (int j = i + 1; j < NList.Count; j++)
-                    if (NList[i].Start > NList[j].Start && NList[i].End < NList[j].End)
-                        NList.RemoveAt(j);
+            var Point = NList[0];
+            List<dynamic> CommonPoints = new List<dynamic>();
+            CommonPoints.Add(Point);
 
-            NList = NList.OrderBy(x => x.Start).ToList();
-            
-            Dictionary<long, List<dynamic>> Groups = new Dictionary<long, List<dynamic>>();
-            for (int i = 0; i < NList.Count; i++)
+            for (int i = 1; i < NList.Count; i++)
             {
-                List<dynamic> temps = new List<dynamic>();
-                for (int j = i; j < NList.Count; j++)
+                if (Point.End < NList[i].Start || Point.End > NList[i].End)
                 {
-                    if (NList[j].Group != 0)
-                    {
-                        break;
-                    }
-                    if (NList[j].Group == 0 &&
-                        ((NList[j].Start <= NList[i].End && NList[j].Start >= NList[i].Start)
-                        ||
-                        (NList[j].End <= NList[i].End && NList[j].End >= NList[i].Start)))
-                    {
-                        temps.Add(NList[j]);
-                        NList[j] = new { NList[j].Start, NList[j].End, NList[j].Range, Group = (long)i + 1 };
-                    }
+                    CommonPoints.Add(Point);
+                    Point = NList[i];
                 }
-                if (temps.Count != 0)
-                {
-                    Groups.Add(i + 1, temps);
-                }
-                
             }
-            return Groups.Keys.Count;
-            
+            return CommonPoints.Count;   
         }
 
         public static long[] MaximizeNumberOfPrizePlaces5(long n)
