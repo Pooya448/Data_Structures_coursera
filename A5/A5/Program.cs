@@ -22,7 +22,7 @@ namespace A5
                 while (true)
                 {
                     long mid = (low + high) / 2;
-                    if (item == a[mid]) { results.Add(mid); break; }
+                    if ((mid == 0 || item > a[mid - 1]) && (a[mid] == item)) { results.Add(mid); break; }
                     else if (item < a[mid]) high = mid - 1;
                     else low = mid + 1;
                     if (low > high)
@@ -61,10 +61,8 @@ namespace A5
                 else if (x > a[mid])
                     return binarySearch(a, (mid + 1),high, x);
                 else
-                    return binarySearch(a, low,
-                                          (mid - 1), x);
+                    return binarySearch(a, low, (mid - 1), x);
             }
-
             return -1;
         }
 
