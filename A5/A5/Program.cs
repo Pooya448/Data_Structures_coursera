@@ -13,10 +13,6 @@ namespace A5
     {
         static void Main(string[] args)
         {
-            long[] x = {0,3};
-            long[] y = {0,4};
-            Console.WriteLine(ClosestPoints6(2,x,y));
-            Console.Read();
         }
 
         public static long[] BinarySearch1(long[] a, long[] b)
@@ -43,18 +39,14 @@ namespace A5
         }
 
         public static string ProcessBinarySearch1(string inStr) =>
-            TestTools.Process(inStr,(Func<long[],long[],long[]>)BinarySearch1);
+            TestTools.Process(inStr, (Func<long[], long[], long[]>)BinarySearch1);
 
         public static long MajorityElement2(long n, long[] a)
         {
             a = a.OrderBy(x => x).ToArray();
             foreach (var item in a)
-            {
                 if (isMajority(a, n, item))
-                {
                     return 1;
-                }
-            }
             return 0;
 
         }
@@ -136,9 +128,7 @@ namespace A5
                     gt--;
                 }
                 else if (mainArray[i] == pivotValue)
-                {
                     i++;
-                }
             }
         }
 
@@ -188,19 +178,14 @@ namespace A5
                     invCount += LeftHalf.Count - i;
                 }
                 else
-                {
                     nums[k++] = LeftHalf[i++];
-                }
             }
 
             while (i < LeftHalf.Count)
-            {
                 nums[k++] = LeftHalf[i++];
-            }
+
             while (j < RightHalf.Count)
-            {
                 nums[k++] = RightHalf[j++];
-            }
 
         }
 
@@ -245,7 +230,7 @@ namespace A5
         }
 
         public static string ProcessOrganizingLottery5(string inStr) =>
-            TestTools.Process(inStr,(Func<long[], long[], long[], long[]>) OrganizingLottery5);
+            TestTools.Process(inStr, (Func<long[], long[], long[], long[]>)OrganizingLottery5);
 
         public static double ClosestPoints6(long n, long[] xPoints, long[] yPoints)
         {
@@ -255,9 +240,7 @@ namespace A5
                        .ToList();
 
             if (n <= 3)
-            {
                 return BruteForce(Data);
-            }
             return Math.Round(FindDistance(Data, 0, (int)n - 1), 4);
         }
 
@@ -274,23 +257,26 @@ namespace A5
         {
             if (low >= high)
                 return double.MaxValue;
+
             if (high - low == 1)
-            {
                 return CalculateDis(Points[low], Points[high]);
-            }
+
             int mid = (low + high) / 2;
             double LeftDistance = FindDistance(Points, low, mid);
-            double RightDistance = FindDistance(Points, mid + 1, high);   
+            double RightDistance = FindDistance(Points, mid + 1, high);
             double MinDistance = FindMin(LeftDistance, RightDistance);
-            var Strip = Points
-                       .GetRange(low, Points.Count - high - 1)
-                       .Where(p => Math.Abs(p.Item1 - Points[mid].Item1) < MinDistance)
-                       .ToList();
-            
-            for (int i = 0; (i < Strip.Count); i++)
-                for (int j = i + 1;  j <= i + 7 && j < Strip.Count; j++)
-                    MinDistance = MinDistance < CalculateDis(Strip[i], Strip[j]) ? MinDistance : CalculateDis(Strip[i], Strip[j]);
-            return MinDistance;
+
+
+            List<(long, long)> Strip = new List<(long, long)>();
+            for (int i = low; i <= high; i++)
+                if (Math.Abs(Points[i].Item1 - Points[mid].Item1) < MinDistance)
+                    Strip.Add(Points[i]);
+
+            double StripMinDistance = BruteForce(Strip);
+
+
+            return MinDistance < StripMinDistance ? MinDistance : StripMinDistance;
+
         }
 
         private static double CalculateDis((long, long) p1, (long, long) p2)
@@ -307,6 +293,6 @@ namespace A5
            TestTools.Process(inStr, (Func<long, long[], long[], double>)
                ClosestPoints6);
 
-        
+
     }
 }
