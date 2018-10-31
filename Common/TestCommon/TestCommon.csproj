@@ -9,7 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestCommon</RootNamespace>
     <AssemblyName>TestCommon</AssemblyName>
+<<<<<<< HEAD
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+=======
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+>>>>>>> master
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
