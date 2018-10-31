@@ -41,7 +41,7 @@ namespace A5.Tests
             TestTools.RunLocalTest("A5", Program.ProcessNumberofInversions4, "TD4");
         }
 
-        [TestMethod()]
+        [TestMethod(),Timeout(1000)]
         [DeploymentItem(@"TestData", "A5_TestData")]
         public void Graded_OrganizingLottery5Test()
         {

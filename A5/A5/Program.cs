@@ -154,24 +154,24 @@ namespace A5
         public static long NumberofInversions4(long n, long[] a)
         {
             long invCount = 0;
-            mergeSort(a.ToList(), 0, (int)n - 1, ref invCount);
+            MergeSort(a.ToList(), 0, (int)n - 1, ref invCount);
             return invCount;
         }
 
-        public static void mergeSort(List<long> nums, int left, int right, ref long invCount)
+        public static void MergeSort(List<long> nums, int left, int right, ref long invCount)
         {
             if (right > left)
             {
                 int mid = (right + left) / 2;
 
-                mergeSort(nums, left, mid, ref invCount);
-                mergeSort(nums, mid + 1, right, ref invCount);
+                MergeSort(nums, left, mid, ref invCount);
+                MergeSort(nums, mid + 1, right, ref invCount);
 
-                merge(nums, left, mid, right, ref invCount);
+                Merge(nums, left, mid, right, ref invCount);
             }
         }
 
-        private static void merge(List<long> nums, int left, int mid, int right, ref long invCount)
+        private static void Merge(List<long> nums, int left, int mid, int right, ref long invCount)
         {
             List<long> LeftHalf = nums.GetRange(left, mid - left + 1);
             List<long> RightHalf = nums.GetRange(mid + 1, right - mid);
@@ -286,9 +286,9 @@ namespace A5
                        .GetRange(low, Points.Count - high - 1)
                        .Where(p => Math.Abs(p.Item1 - Points[mid].Item1) < MinDistance)
                        .ToList();
-
-            for (int i = 0; i < Strip.Count; i++)
-                for (int j = i + 1; j <= i + 7 && j < Strip.Count; j++)
+            
+            for (int i = 0; (i < Strip.Count); i++)
+                for (int j = i + 1;  j <= i + 7 && j < Strip.Count; j++)
                     MinDistance = MinDistance < CalculateDis(Strip[i], Strip[j]) ? MinDistance : CalculateDis(Strip[i], Strip[j]);
             return MinDistance;
         }
