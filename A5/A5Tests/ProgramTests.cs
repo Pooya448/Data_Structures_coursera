@@ -48,7 +48,7 @@ namespace A5.Tests
             TestTools.RunLocalTest("A5", Program.ProcessOrganizingLottery5, "TD5");
         }
 
-        [TestMethod()]
+        [TestMethod(),Timeout(1000)]
         [DeploymentItem(@"TestData", "A5_TestData")]
         public void Graded_ClosestPoints6()
         {
