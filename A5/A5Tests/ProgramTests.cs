@@ -19,7 +19,7 @@ namespace A5.Tests
             TestTools.RunLocalTest("A5", Program.ProcessBinarySearch1, "TD1");
         }
 
-        [TestMethod()]
+        [TestMethod(),Timeout(1000)]
         [DeploymentItem(@"TestData", "A5_TestData")]
         public void Graded_MajorityElement2Test()
         {
@@ -34,21 +34,21 @@ namespace A5.Tests
             TestTools.RunLocalTest("A5", Program.ProcessImprovingQuickSort3, "TD3");
         }
 
-        [TestMethod(), Timeout(1000)]
+        [TestMethod(),Timeout(1000)]
         [DeploymentItem(@"TestData", "A5_TestData")]
         public void Graded_NumberofInversions4Test()
         {
             TestTools.RunLocalTest("A5", Program.ProcessNumberofInversions4, "TD4");
         }
 
-        [TestMethod(), Timeout(1000)]
+        [TestMethod()]
         [DeploymentItem(@"TestData", "A5_TestData")]
         public void Graded_OrganizingLottery5Test()
         {
             TestTools.RunLocalTest("A5", Program.ProcessOrganizingLottery5, "TD5");
         }
 
-        [TestMethod(), Timeout(1000)]
+        [TestMethod()]
         [DeploymentItem(@"TestData", "A5_TestData")]
         public void Graded_ClosestPoints6()
         {
