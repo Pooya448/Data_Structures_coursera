@@ -33,7 +33,7 @@ namespace A4
                 (Func<long, long[]>)MaximizeNumberOfPrizePlaces5);
 
         public static string ProcessMaximizeSalary6(string inStr)
-            => TestTools.Process(inStr,MaximizeSalary6);
+            => TestTools.Process(inStr,(Func<long,long[],string>) MaximizeSalary6);
 
         public static long ChangingMoney1(long money)
         {
