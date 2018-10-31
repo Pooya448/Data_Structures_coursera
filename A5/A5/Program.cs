@@ -43,7 +43,7 @@ namespace A5
         }
 
         public static string ProcessBinarySearch1(string inStr) =>
-            TestTools.Process(inStr, BinarySearch1);
+            TestTools.Process(inStr,(Func<long[],long[],long[]>)BinarySearch1);
 
         public static long MajorityElement2(long n, long[] a)
         {
@@ -245,7 +245,7 @@ namespace A5
         }
 
         public static string ProcessOrganizingLottery5(string inStr) =>
-            TestTools.Process(inStr, OrganizingLottery5);
+            TestTools.Process(inStr,(Func<long[], long[], long[], long[]>) OrganizingLottery5);
 
         public static double ClosestPoints6(long n, long[] xPoints, long[] yPoints)
         {
