@@ -16,7 +16,7 @@ namespace A6
 
         public long Solve(string str1, string str2)
         {
-            //Write your code here
+            
             return 0;
         }
 
