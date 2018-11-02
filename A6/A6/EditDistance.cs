@@ -18,17 +18,14 @@ namespace A6
         {
             int[,] DistanceEdit = new int[str1.Length + 1, str2.Length + 1];
             DistanceEdit[0, 0] = 0;
+
             for (int i = 1; i <= str1.Length; i++)
                 DistanceEdit[i, 0] = i;
 
             for (int j = 1; j <= str2.Length; j++)
                 DistanceEdit[0, j] = j;
 
-            var iCount = DistanceEdit.GetLength(0);
-            var jCount = DistanceEdit.GetLength(1);
-
             for (int i = 1; i < DistanceEdit.GetLength(0); i++)
-            {
                 for (int j = 1; j < DistanceEdit.GetLength(1); j++)
                 {
                     int insertion = DistanceEdit[i, j - 1] + 1;
@@ -40,7 +37,6 @@ namespace A6
                     else
                         DistanceEdit[i, j] = Min(insertion, deletion, substitution);
                 }
-            }
             return DistanceEdit[str1.Length,str2.Length];
         }
 
