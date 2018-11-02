@@ -14,8 +14,8 @@ namespace A6
         public MoneyChange(string testDataName) : base(testDataName) { }
 
         public override string Process(string inStr) =>
-            TestTools.Process(inStr, (Func<long, long>) Solve);
-        
+            TestTools.Process(inStr, (Func<long, long>)Solve);
+
         public long Solve(long n)
         {
             long[] OptimumCoins = new long[n + 1];
