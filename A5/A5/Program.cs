@@ -236,11 +236,12 @@ namespace A5
         {
             var Data = xPoints
                        .Zip(yPoints, (x, y) => (x, y))
-                       .OrderBy(p => p.y)
+                       .OrderBy(p => p.x)
                        .ToList();
 
             if (n <= 3)
                 return BruteForce(Data);
+
             return Math.Round(FindDistance(Data, 0, (int)n - 1), 4);
         }
 
@@ -264,29 +265,20 @@ namespace A5
             int mid = (low + high) / 2;
             double LeftDistance = FindDistance(Points, low, mid);
             double RightDistance = FindDistance(Points, mid + 1, high);
-            double MinDistance = FindMin(LeftDistance, RightDistance);
-
+            double MinDistance = Math.Min(LeftDistance, RightDistance);
 
             List<(long, long)> Strip = new List<(long, long)>();
+
             for (int i = low; i <= high; i++)
-                if (Math.Abs(Points[i].Item1 - Points[mid].Item1) < MinDistance)
+                if (Math.Abs(Points[i].Item2 - Points[mid].Item2) < MinDistance)
                     Strip.Add(Points[i]);
 
-            double StripMinDistance = BruteForce(Strip);
-
-
-            return MinDistance < StripMinDistance ? MinDistance : StripMinDistance;
-
+            return Math.Min(BruteForce(Strip), MinDistance);
         }
 
         private static double CalculateDis((long, long) p1, (long, long) p2)
         {
             return Math.Abs(Math.Sqrt(Math.Pow((p1.Item1 - p2.Item1), 2) + Math.Pow((p1.Item2 - p2.Item2), 2)));
-        }
-
-        private static double FindMin(params double[] values)
-        {
-            return values.OrderBy(x => x).First();
         }
 
         public static string ProcessClosestPoints6(string inStr) =>
