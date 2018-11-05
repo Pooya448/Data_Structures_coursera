@@ -12,6 +12,7 @@ namespace Q1
 
         static void Main(string[] args)
         {
+            
         }
 
         public static WordCount[] Load(string filePath)

@@ -19,8 +19,30 @@ namespace Q1
         public bool GetCount(string word, out ulong count)
         {
             count = 0;
-            //TODO
-            return false;
+            bool res = BinarySearch(word, WordCounts, ref count); 
+            return res;
+        }
+
+        private bool BinarySearch(string word, WordCount[] wordCounts, ref ulong count)
+        {
+            long low = 0, high = wordCounts.Length - 1;
+            while (true)
+            {
+                if (low > high)
+                    return false;
+
+                long mid = (low + high) / 2;
+
+                if (string.Compare(word, wordCounts[mid].Word) == 0)
+                {
+                    count = wordCounts[mid].Count;
+                    return true;
+                }
+                else if (string.Compare(word, wordCounts[mid].Word) < 0)
+                    high = mid - 1;
+                else if (string.Compare(word, wordCounts[mid].Word) > 0)
+                    low = mid + 1;
+            }
         }
     }
 }
