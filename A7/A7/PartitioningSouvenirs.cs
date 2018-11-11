@@ -16,113 +16,60 @@ namespace A7
 
         public long Solve(long souvenirsCount, long[] souvenirsArr)
         {
-            long Sum = souvenirsArr.Sum();
-            if (Sum % 3 != 0 || Sum == 0)
-                return 0;
-            long PartitionSum = Sum / 3;
-            bool[,] resPartition = new bool[souvenirsCount + 1, PartitionSum + 1];
-            var souvenirs = souvenirsArr.OrderByDescending(x => x).ToList();
-            for (int j = 0; j < resPartition.GetLength(1); j++)
-            {
-                resPartition[0, j] = false;
-            }
-            for (int i = 0; i < resPartition.GetLength(0); i++)
-            {
-                resPartition[i, 0] = true;
-            }
-            bool flag = false;
-            List<long> listOfRemoval = new List<long>();
-            for (int i = 1; i < resPartition.GetLength(0); i++)
-            {
-                for (int j = 1; j < resPartition.GetLength(1); j++)
-                {
-                    //resPartition[i, j] = resPartition[i - 1, j];
-                    if (souvenirs[i - 1] <= j)
-                    {
-                        resPartition[i, j] = resPartition[i - 1, j] || resPartition[i - 1, j - souvenirs[i - 1]];
-                    }
-                }
-                if (resPartition[i, PartitionSum])
-                {
-                    flag = true;
-                    listOfRemoval = BackTrack(resPartition, i, souvenirs.ToArray());
-                    PrintArray(resPartition);
-                    listOfRemoval.ForEach(x => Console.WriteLine(x));
-                    Console.WriteLine("\n\n********************\n\n");
-                    break;
-                }
-            }
-            if (!flag)
-            {
-                return 0;
-            }
-            foreach (var item in listOfRemoval)
-            {
-                souvenirs.Remove(item);
-            }
-            return PartSolve(souvenirs.Count, souvenirs.ToArray()) ? 1 : 0;
-        }
+            souvenirsArr = souvenirsArr
+                           .OrderByDescending(x => x)
+                           .ToArray();
 
-        private void PrintArray(bool[,] arr)
-        {
-            int rowLength = arr.GetLength(0);
-            int colLength = arr.GetLength(1);
+            var partTuple = Partition(souvenirsCount, souvenirsArr, 3);
+            if (partTuple.Item1 == null)
+                return 0;
 
-            for (int i = 0; i < rowLength; i++)
-            {
-                for (int j = 0; j < colLength; j++)
-                {
-                    Console.Write(string.Format("{0} ", arr[i, j]));
-                }
-                Console.Write(Environment.NewLine + Environment.NewLine);
-            }
-            Console.WriteLine("********************************\n******************************");
+            List<long> removalList = BackTrack(partTuple.Item1, partTuple.Item2, souvenirsArr);
+
+            List<long> souvenirs = souvenirsArr.ToList();
+            removalList.ForEach(x => souvenirs.Remove(x));
+            souvenirsArr = souvenirs.ToArray(); 
+
+            partTuple = Partition(souvenirsCount, souvenirsArr, 2);
+            if (partTuple.Item1 == null)
+                return 0;
+            else
+                return partTuple.Item1[partTuple.Item2, partTuple.Item3] ? 1 : 0;
         }
 
         private List<long> BackTrack(bool[,] resPartition, int i, long[] souvenirs)
         {
             List<long> result = new List<long>();
             for (int j = resPartition.GetLength(1) - 1; j > 0 && i > 0; i--)
-            {
                 if (resPartition[i, j] && resPartition[i - 1, j - souvenirs[i - 1]])
                 {
                     result.Add(souvenirs[i - 1]);
                     j -= (int)souvenirs[i - 1];
                 }
-
-
-
-            }
             return result;
         }
-        public bool PartSolve(long souvenirsCount, long[] souvenirs)
+
+        public (bool[,],int,int) Partition(long souvenirsCount, long[] souvenirsArr, int K)
         {
+            var souvenirs = souvenirsArr.ToList();
             long Sum = souvenirs.Sum();
-            if (Sum % 2 != 0)
-                return false;
-            long PartitionSum = Sum / 2;
-            bool[,] resPartition = new bool[souvenirsCount + 1, PartitionSum + 1];
-            for (int j = 0; j < resPartition.GetLength(1); j++)
+            if (Sum % K != 0 || Sum == 0)
+                return (null,-1,-1);
+            long PartitionSum = Sum / K;
+            bool[,] partitionTable = new bool[souvenirsCount + 1, PartitionSum + 1];
+            for (int j = 0; j < partitionTable.GetLength(1); j++)
+                partitionTable[0, j] = false;
+            for (int i = 0; i < partitionTable.GetLength(0); i++)
+                partitionTable[i, 0] = true;
+            for (int i = 1; i < partitionTable.GetLength(0); i++)
             {
-                resPartition[0, j] = false;
-            }
-            for (int i = 0; i < resPartition.GetLength(0); i++)
-            {
-                resPartition[i, 0] = true;
-            }
-            for (int i = 1; i < resPartition.GetLength(0); i++)
-            {
-                for (int j = 1; j < resPartition.GetLength(1); j++)
-                {
-                    //resPartition[i, j] = resPartition[i - 1, j];
+                for (int j = 1; j < partitionTable.GetLength(1); j++)
                     if (souvenirs[i - 1] <= j)
-                    {
-                        resPartition[i, j] = resPartition[i - 1, j] || resPartition[i - 1, j - souvenirs[i - 1]];
-                    }
-                }
+                        partitionTable[i, j] = partitionTable[i - 1, j] || partitionTable[i - 1, j - souvenirs[i - 1]];
+                if (partitionTable[i, PartitionSum])
+                    return (partitionTable,i, (int)PartitionSum);
             }
-            PrintArray(resPartition);
-            return resPartition[souvenirsCount, PartitionSum];
+            return (null,-1,-1);
         }
     }
 }

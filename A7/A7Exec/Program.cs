@@ -10,10 +10,9 @@ namespace A7Exec
     {
         static void Main(string[] args)
         {
-            Console.Read();
-            long[] ss = Enumerable.Range(1,17).Select(x => long.Parse(x.ToString())).ToArray();
-            Enumerable.Range(1, 17).ToList().ForEach(x => Console.WriteLine(x));
-            Console.WriteLine("\n\n\n\n/////////////////////////////");
+            long[] ss = new long[] { 1, 2, 2, 2, 1, 3, 3, 3, 2, 2, 3, 2, 1, 2, 3, 3, 2, 2, };
+            //Console.WriteLine(ss.Sum());
+            ss = ss.OrderByDescending(x => x).ToArray();
             A7.PartitioningSouvenirs obj = new A7.PartitioningSouvenirs("shit");
             Console.WriteLine(obj.Solve(ss.Length,ss));
             Console.Read();
