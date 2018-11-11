@@ -24,22 +24,10 @@ namespace A6
         {
             bool IsDiv3 = i % 3 == 0, IsDiv2 = i % 2 == 0;
             List<(long,int,Op)> SortHelper = new List<(long,int,Op)>();
-            string Condition = IsDiv3.ToString() + ':' + IsDiv2.ToString();
-            switch (Condition)
-            {
-                case "True:True" :
-                    SortHelper.Add((optimumOperation[0, i / 2], i / 2, Op.Div2));
-                    SortHelper.Add((optimumOperation[0, i / 3], i/3,Op.Div3));
-                    break;
-                case "True:False":
-                    SortHelper.Add((optimumOperation[0, i / 3], i / 3, Op.Div3));
-                    break;
-                case "False:True":
-                    SortHelper.Add((optimumOperation[0, i / 2], i / 2, Op.Div2));
-                    break;
-                default:
-                    break;
-            }
+            if (IsDiv2)
+                SortHelper.Add((optimumOperation[0, i / 2], i / 2, Op.Div2));
+            if (IsDiv3)
+                SortHelper.Add((optimumOperation[0, i / 3], i / 3, Op.Div3));
             SortHelper.Add((optimumOperation[0,i-1], i-1,Op.Sub1));
             return SortHelper
                    .OrderBy(x => x.Item1)

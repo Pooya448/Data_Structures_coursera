@@ -21,14 +21,14 @@ namespace A6
             long[] OptimumCoins = new long[n + 1];
             OptimumCoins[0] = 0;
             long Min;
-            for (int CoinValue = 1; CoinValue <= n; CoinValue++)
+            for (int coinValue = 1; coinValue <= n; coinValue++)
             {
                 Min = long.MaxValue;
                 for (int j = 0; j < COINS.Length; j++)
-                    if (COINS[j] <= CoinValue)
-                        if (1 + OptimumCoins[CoinValue - COINS[j]] < Min)
-                            Min = 1 + OptimumCoins[CoinValue - COINS[j]];
-                OptimumCoins[CoinValue] = Min;
+                    if (COINS[j] <= coinValue)
+                        if (1 + OptimumCoins[coinValue - COINS[j]] < Min)
+                            Min = 1 + OptimumCoins[coinValue - COINS[j]];
+                OptimumCoins[coinValue] = Min;
             }
             return OptimumCoins[n];
         }

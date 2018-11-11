@@ -16,8 +16,11 @@ namespace A7
 
         public long Solve(long souvenirsCount, long[] souvenirs)
         {
-            //Write your code here
-            return 0;
+            long Sum = souvenirs.Sum();
+            if (Sum % 3 != 0)
+                return 0;
+            long PartitionSum = Sum / 3;
+            return 1;
         }
     }
 }
