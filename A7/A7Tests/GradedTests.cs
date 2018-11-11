@@ -12,14 +12,14 @@ namespace A7.Tests
     [TestClass()]
     public class GradedTests
     {
-        [TestMethod(), Timeout(1000)]
+        [TestMethod(),Timeout(1000)]
         [DeploymentItem("TestData", "A7_TestData")]
         public void SolveTest()
         {
             Processor[] problems = new Processor[] {
                 new MaximumGold("TD1"),
                 new PartitioningSouvenirs("TD2"),
-                //new MaximizingArithmeticExpression("TD3")
+                new MaximizingArithmeticExpression("TD3")
             };
 
             foreach (var p in problems)

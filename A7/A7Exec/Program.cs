@@ -10,11 +10,15 @@ namespace A7Exec
     {
         static void Main(string[] args)
         {
-            long w = 10;
-            long[] bars = new long[] { 1,4,8};
-            A7.MaximumGold obj = new A7.MaximumGold("shit");
-            Console.WriteLine(obj.Solve(w,bars));
+            Console.Read();
+            long[] ss = Enumerable.Range(1,17).Select(x => long.Parse(x.ToString())).ToArray();
+            Enumerable.Range(1, 17).ToList().ForEach(x => Console.WriteLine(x));
+            Console.WriteLine("\n\n\n\n/////////////////////////////");
+            A7.PartitioningSouvenirs obj = new A7.PartitioningSouvenirs("shit");
+            Console.WriteLine(obj.Solve(ss.Length,ss));
             Console.Read();
         }
+        
+        
     }
 }
