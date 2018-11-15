@@ -50,17 +50,13 @@ namespace A7
             long tempMax = long.MinValue;
             for (int k = i; k < j; k++)
             {
-                tempMin = new[] { SwitchOp(max[i, k], op[k], max[k + 1, j]),
-                                  SwitchOp(max[i, k], op[k], min[k + 1, j]),
-                                  SwitchOp(min[i, k], op[k], max[k + 1, j]),
-                                  SwitchOp(min[i, k], op[k], min[k + 1, j]),
-                                  tempMin}.Min();
-                tempMax = new[] { SwitchOp(max[i, k], op[k], max[k + 1, j]),
-                                  SwitchOp(max[i, k], op[k], min[k + 1, j]),
-                                  SwitchOp(min[i, k], op[k], max[k + 1, j]),
-                                  SwitchOp(min[i, k], op[k], min[k + 1, j]),
-                                  tempMax}.Max();
+                var a = SwitchOp(max[i, k], op[k], max[k + 1, j]);
+                var b = SwitchOp(max[i, k], op[k], min[k + 1, j]);
+                var c = SwitchOp(min[i, k], op[k], max[k + 1, j]);
+                var d = SwitchOp(min[i, k], op[k], min[k + 1, j]);
 
+                tempMin = new[] {a,b,c,d,tempMin}.Min();
+                tempMax = new[] {a,b,c,d,tempMax}.Max();
             }
             return (tempMin, tempMax);
         }

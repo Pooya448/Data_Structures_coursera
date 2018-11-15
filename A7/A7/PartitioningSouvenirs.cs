@@ -14,62 +14,37 @@ namespace A7
         public override string Process(string inStr) =>
             TestTools.Process(inStr, (Func<long, long[], long>)Solve);
 
-        public long Solve(long souvenirsCount, long[] souvenirsArr)
+        public long Solve(long souvenirsCount, long[] souvenirs)
         {
-            souvenirsArr = souvenirsArr
-                           .OrderByDescending(x => x)
-                           .ToArray();
-
-            var partTuple = Partition(souvenirsCount, souvenirsArr, 3);
-            if (partTuple.Item1 == null)
-                return 0;
-
-            List<long> removalList = BackTrack(partTuple.Item1, partTuple.Item2, souvenirsArr);
-
-            List<long> souvenirs = souvenirsArr.ToList();
-            removalList.ForEach(x => souvenirs.Remove(x));
-            souvenirsArr = souvenirs.ToArray(); 
-
-            partTuple = Partition(souvenirsCount, souvenirsArr, 2);
-            if (partTuple.Item1 == null)
-                return 0;
-            else
-                return partTuple.Item1[partTuple.Item2, partTuple.Item3] ? 1 : 0;
-        }
-
-        private List<long> BackTrack(bool[,] resPartition, int i, long[] souvenirs)
-        {
-            List<long> result = new List<long>();
-            for (int j = resPartition.GetLength(1) - 1; j > 0 && i > 0; i--)
-                if (resPartition[i, j] && resPartition[i - 1, j - souvenirs[i - 1]])
-                {
-                    result.Add(souvenirs[i - 1]);
-                    j -= (int)souvenirs[i - 1];
-                }
-            return result;
-        }
-
-        public (bool[,],int,int) Partition(long souvenirsCount, long[] souvenirsArr, int K)
-        {
-            var souvenirs = souvenirsArr.ToList();
             long Sum = souvenirs.Sum();
-            if (Sum % K != 0 || Sum == 0)
-                return (null,-1,-1);
-            long PartitionSum = Sum / K;
-            bool[,] partitionTable = new bool[souvenirsCount + 1, PartitionSum + 1];
-            for (int j = 0; j < partitionTable.GetLength(1); j++)
-                partitionTable[0, j] = false;
-            for (int i = 0; i < partitionTable.GetLength(0); i++)
-                partitionTable[i, 0] = true;
-            for (int i = 1; i < partitionTable.GetLength(0); i++)
-            {
-                for (int j = 1; j < partitionTable.GetLength(1); j++)
-                    if (souvenirs[i - 1] <= j)
-                        partitionTable[i, j] = partitionTable[i - 1, j] || partitionTable[i - 1, j - souvenirs[i - 1]];
-                if (partitionTable[i, PartitionSum])
-                    return (partitionTable,i, (int)PartitionSum);
-            }
-            return (null,-1,-1);
+            if (souvenirsCount < 3 || Sum % 3 != 0 || Sum / 3 < souvenirs.Max())
+                return 0;
+ 
+            long partitionSum = Sum / 3;
+            bool[,,] partitionData = new bool[partitionSum + 1, partitionSum + 1,souvenirs.Length];
+
+            for (int i = 0; i < partitionSum + 1; i++)
+                for (int j = 0; j < partitionSum + 1; j++)
+                    for (int k = 0; k < souvenirsCount; k++)
+                    {
+                        partitionData[i, 0, k] = ((i == 0) || (souvenirs[k] == i));
+                        partitionData[0, j, k] = ((j == 0) || (souvenirs[k] == j));
+                    }
+            for (int i = 1; i < partitionSum + 1; i++)
+                for (int j = 1; j < partitionSum + 1; j++)
+                    for (int k = 0; k < souvenirsCount; k++)
+                    {
+                        bool fillable = false;
+                        if(k > 0)
+                        {
+                            fillable = partitionData[i, j, k - 1];
+                            if ((souvenirs[k] <= i && partitionData[i - souvenirs[k], j, k - 1]) || 
+                                (souvenirs[k] <= j && partitionData[i, j - souvenirs[k], k - 1]))
+                                fillable = true;
+                        }
+                        partitionData[i, j, k] = fillable;
+                    }
+            return partitionData[partitionSum, partitionSum, souvenirsCount - 1] ? 1 : 0;
         }
     }
 }
