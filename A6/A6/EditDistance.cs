@@ -7,7 +7,7 @@ using TestCommon;
 
 namespace A6
 {
-    public class EditDistance: Processor
+    public class EditDistance : Processor
     {
         public EditDistance(string testDataName) : base(testDataName) { }
 
@@ -16,33 +16,28 @@ namespace A6
 
         public long Solve(string str1, string str2)
         {
-            int[,] DistanceEdit = new int[str1.Length + 1, str2.Length + 1];
-            DistanceEdit[0, 0] = 0;
+            int[,] distanceEdit = new int[str1.Length + 1, str2.Length + 1];
+            distanceEdit[0, 0] = 0;
 
             for (int i = 1; i <= str1.Length; i++)
-                DistanceEdit[i, 0] = i;
+                distanceEdit[i, 0] = i;
 
             for (int j = 1; j <= str2.Length; j++)
-                DistanceEdit[0, j] = j;
+                distanceEdit[0, j] = j;
 
-            for (int i = 1; i < DistanceEdit.GetLength(0); i++)
-                for (int j = 1; j < DistanceEdit.GetLength(1); j++)
+            for (int i = 1; i < distanceEdit.GetLength(0); i++)
+                for (int j = 1; j < distanceEdit.GetLength(1); j++)
                 {
-                    int insertion = DistanceEdit[i, j - 1] + 1;
-                    int deletion = DistanceEdit[i - 1, j] + 1;
-                    int substitution = DistanceEdit[i - 1, j - 1] + 1;
-                    int match = DistanceEdit[i - 1, j - 1];
+                    int insertion = distanceEdit[i, j - 1] + 1;
+                    int deletion = distanceEdit[i - 1, j] + 1;
+                    int substitution = distanceEdit[i - 1, j - 1] + 1;
+                    int match = distanceEdit[i - 1, j - 1];
                     if (str1[i - 1] == str2[j - 1])
-                        DistanceEdit[i, j] = Min(insertion, deletion, match);
+                        distanceEdit[i, j] = new[] { insertion, deletion, match }.Min();
                     else
-                        DistanceEdit[i, j] = Min(insertion, deletion, substitution);
+                        distanceEdit[i, j] = new[] { insertion, deletion, substitution }.Min();
                 }
-            return DistanceEdit[str1.Length,str2.Length];
-        }
-
-        private int Min(int insertion, int deletion, int matchOrmismatch)
-        {
-            return Math.Min(insertion, deletion) > matchOrmismatch ? matchOrmismatch : Math.Min(insertion, deletion);
+            return distanceEdit[str1.Length, str2.Length];
         }
     }
 }
