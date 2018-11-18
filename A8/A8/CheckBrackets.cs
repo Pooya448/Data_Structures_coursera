@@ -15,7 +15,7 @@ namespace A8
             TestTools.Process(inStr, (Func<string, long>)Solve);
 
         public long Solve(string str)
-        {
+        {   
             Dictionary<char, char> braces = new Dictionary<char, char>()
             {
                 {'(',')'},

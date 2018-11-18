@@ -10,9 +10,9 @@ namespace A8Exec
     {
         static void Main(string[] args)
         {
-            string str = "[very(strong]test)";
-            var temp = new A8.CheckBrackets("sd");
-            temp.Solve(str);
+            long[] test = new long[] {4,-1,4,1,1};
+            var temp = new A8.PacketProcessing("sd");
+            Console.WriteLine(); 
             Console.Read();
         }
     }
