@@ -18,8 +18,8 @@ namespace A10.Tests
         {
             Processor[] problems = new Processor[] {
                 new PhoneBook("TD1"),
-                //new HashingWithChain("TD2"),
-                //new RabinKarp("TD3")
+                new HashingWithChain("TD2"),
+                new RabinKarp("TD3")
             };
 
             foreach (var p in problems)
@@ -43,7 +43,7 @@ namespace A10.Tests
             for (int i = 0; i < testStr.Length - patternLen + 1; i++)
             {
                 long expectedHash =
-                    HashingWithChain.PolyHash(testStr, i, patternLen, 101, 3);
+                    HashingWithChain.PolyHash(testStr, i, patternLen, 101, 101, 3);
                 Assert.AreEqual(expectedHash, H[i]);
             }
         }

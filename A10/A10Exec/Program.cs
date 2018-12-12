@@ -10,6 +10,8 @@ namespace A10Exec
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(A10.HashingWithChain.PolyHash("world",0,5));
+            Console.Read();
         }
     }
 }
