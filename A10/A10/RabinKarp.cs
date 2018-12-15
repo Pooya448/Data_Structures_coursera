@@ -53,11 +53,11 @@ namespace A10
             long x = ChosenX)
         {
             long[] preComHashes = new long[T.Length - P + 1];
-            preComHashes[T.Length - P] = HashingWithChain.PolyHash(T, T.Length - P, P);
-            long y = HashingWithChain.Power(x,P);
+            preComHashes[T.Length - P] = HashingWithChain.PolyHash(T, T.Length - P, P, p, p, x);
+            long y = HashingWithChain.Power(x, P);
             for (int i = T.Length - P - 1; i >= 0; i--)
             {
-                preComHashes[i] = (x * preComHashes[i + 1] + T[i] - y * T[i + P] % p) % p;
+                preComHashes[i] = ((x * preComHashes[i + 1] + T[i] - y * T[i + P] % p) % p + p) % p;
             }
             return preComHashes;
         }

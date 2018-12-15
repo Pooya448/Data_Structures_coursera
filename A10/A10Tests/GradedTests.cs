@@ -12,7 +12,7 @@ namespace A10.Tests
     [TestClass()]
     public class GradedTests
     {
-        [TestMethod()]
+        [TestMethod(),Timeout(5000)]
         [DeploymentItem("TestData", "A10_TestData")]
         public void SolveTest()
         {
@@ -35,8 +35,8 @@ namespace A10.Tests
         [TestMethod()]
         public void PreComputeHashesTest()
         {
-            string testStr = "aaaa";
-            int patternLen = 2;
+            string testStr = "nbvgcfdretfyghjugfdrtyghjuiytrdsfxcvbjhytrdfgcvbnhjkuiytgfhbvnm";
+            int patternLen = 4;
             long[] H = RabinKarp.PreComputeHashes(
                 testStr, patternLen, 101, 3);
 

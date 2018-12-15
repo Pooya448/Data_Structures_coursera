@@ -103,11 +103,9 @@ namespace A10
         public string Check(int i)
         {
             string str = "-";
+            HashTable[i].Reverse();
             if (HashTable[i].Any())
-            {
-                HashTable[i].Reverse();
                 str = String.Join(" ", HashTable[i]);
-            }
             HashTable[i].Reverse();
             return str;
         }

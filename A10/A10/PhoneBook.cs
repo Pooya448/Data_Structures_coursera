@@ -70,7 +70,8 @@ namespace A10
                     PhoneBookList[hash][i].Name = name;
                     return;
                 }
-            PhoneBookList[hash].Add(new Contact(name,number));
+            PhoneBookList[hash].Add(new Contact(name, number));
+            return;
         }
 
         public string Find(int number, int hash)
