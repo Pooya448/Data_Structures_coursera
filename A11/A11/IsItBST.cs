@@ -15,12 +15,7 @@ namespace A11
         public bool Solve(long[][] nodes)
         {
             Tree tree = new Tree(nodes);
-            var inOrder = tree.InOrder();
-            var inOrderSorted = inOrder.OrderBy(x => x).ToArray();
-            for (int i = 0; i < inOrder.Length; i++)
-                if (inOrder[i] != inOrderSorted[i])
-                    return false;
-            return true;
+            return tree.IsBST();
         }
     }    
 }
