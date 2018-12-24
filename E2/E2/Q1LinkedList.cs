@@ -1,6 +1,8 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace E2
 {
@@ -45,16 +47,40 @@ namespace E2
 
         public void Reverse()
         {
-            // زحمت بکشید پیاده سازی کنید
-            // اگر نیاز بود میتوانید متد اضافه کنید
+            if (Head == null)
+                return;
+            Reverse(Head);
+            var temp = Head;
+            Head = Tail;
+            Tail = temp;
+            return;
+        }
+
+        private void Reverse(Node node)
+        {
+            if (node.Next != null)
+                Reverse(node.Next);
+            var tempNext = node.Next;
+            node.Next = node.Prev;
+            node.Prev = tempNext;
+            return;
         }
 
         public void DeepReverse()
         {
-            // زحمت بکشید پیاده سازی کنید
-            // اگر نیاز بود میتوانید متد اضافه کنید
+            var pivot = Head;
+            while (pivot != null)
+            {
+                var tempNext = pivot.Next;
+                pivot.Next = pivot.Prev;
+                pivot.Prev = tempNext;
+                pivot = pivot.Prev;
+            }
+            var temp = Head;
+            Head = Tail;
+            Tail = temp;
+            return;
         }
-
         public IEnumerable<int> GetForwardEnumerator()
         {
             var it = this.Head;
