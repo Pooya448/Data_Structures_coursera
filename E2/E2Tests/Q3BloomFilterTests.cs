@@ -14,12 +14,11 @@ namespace E2.Tests
         [TestMethod()]
         public void BloomFilterTest()
         {
-            Assert.Inconclusive("Not Implemented");
             // تعداد پسوردها - ثابت. عوض نکنید.
             int pwdCount = 1_000_000;
 
             // اندازه مناسب را خودتون انتخاب کنید
-            int filterSize =(5 * pwdCount);
+            int filterSize = (5 * pwdCount);
 
             // تعداد توابع را هم خودتان تنظیم کنید
             int hashFnCount = 3;
@@ -27,7 +26,7 @@ namespace E2.Tests
             Q3BloomFilter filter = new Q3BloomFilter(filterSize, hashFnCount);
             HashSet<string> passwords = new HashSet<string>();
 
-            foreach(string pwd in RandomStringGenerator(pwdCount, 0))
+            foreach (string pwd in RandomStringGenerator(pwdCount, 0))
             {
                 // پسورد را به فیلتر اضافه کن
                 filter.Add(pwd);
@@ -51,7 +50,7 @@ namespace E2.Tests
                 bool trueAnswer = passwords.Contains(pwd);
 
                 // اگر فیلتر بگه توی لیست نیست، ولی واقعا باشه که کلا اشتباه شده
-                Assert.IsTrue(!filterAnswer && trueAnswer);
+                Assert.IsFalse(!filterAnswer && trueAnswer);
 
                 // اگر فیلتر بگه توی لیست هست ولی واقعا نباشه میشه falsePositive
                 if (!trueAnswer && filterAnswer)
@@ -71,7 +70,7 @@ namespace E2.Tests
 
         protected static readonly char[] Chars = Enumerable.Range('a', 26).Select(x => (char)x).ToArray();
 
-        private IEnumerable<string> RandomStringGenerator(int count=int.MaxValue, int rndSeed = 0)
+        private IEnumerable<string> RandomStringGenerator(int count = int.MaxValue, int rndSeed = 0)
         {
             Random rnd = new Random(rndSeed);
 
