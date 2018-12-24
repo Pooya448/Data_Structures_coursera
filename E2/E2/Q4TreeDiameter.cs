@@ -22,6 +22,7 @@ namespace E2
         }
         public class Tree
         {
+            
             public Node Root { get; set; }
             public List<Node> Nodes { get; set; }
             public int Height { get; set; }
@@ -39,6 +40,7 @@ namespace E2
                 Root = Nodes[0];
                 return;
             }
+            
             public (Node,int) FindFurthest(Node root)
             {
                 Node furthest = root;
@@ -67,11 +69,14 @@ namespace E2
                 Reset();
                 return (furthest,distance);
             }
-
+            
             private void Reset()
             {
                 foreach (var item in Nodes)
+                {
                     item.IsChecked = false;
+                    item.DepthLevel = 0;
+                }
             }
         }
             
@@ -80,7 +85,6 @@ namespace E2
 
         public Q4TreeDiameter(int nodeCount, List<int>[] preCreatedTree = null, int seed = 0)
         {
-            
             Nodes = preCreatedTree == null ? GenerateRandomTree(size: nodeCount, seed: seed) : preCreatedTree;
             MainTree = new Tree(Nodes);
             return;

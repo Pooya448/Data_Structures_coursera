@@ -24,10 +24,9 @@ namespace E2
             TestTree[9] = new List<int>();
             TestTree[10] = new List<int>();
 
-            int ExpectedDiameter = 5;
 
             Q4TreeDiameter Test = new Q4TreeDiameter(10, TestTree);
-            Console.WriteLine(Test.TreeDiameterN2());
+            Console.WriteLine(Test.TreeDiameterN());
             Console.Read();
         }
     }
