@@ -14,7 +14,7 @@ namespace A11
         public bool Solve(long[][] nodes)
         {
             Tree tree = new Tree(nodes);
-            return tree.IsBST();
+            return tree.IsBSTHard();
         }
     }
 }

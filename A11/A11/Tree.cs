@@ -67,7 +67,7 @@ namespace A11
             Reset();
             return inOrderList.ToArray();
         }
-        public bool IsBST()
+        public bool IsBSTHard()
         {
             if (List.Count() == 0)
                 return true;
@@ -82,13 +82,13 @@ namespace A11
                 else
                 {
                     if (pivot.RightChild != -1)
-                        if (List[pivot.RightChild].Key < pivot.Key)
+                        if (List[pivot.RightChild].Key < pivot.Key || MinSubtree(List[pivot.RightChild]) < pivot.Key)
                             return false;
                         else
                             inOrderStack.Push(List[pivot.RightChild]);
                     inOrderStack.Push(pivot);
                     if (pivot.LeftChild != -1)
-                        if (List[pivot.LeftChild].Key >= pivot.Key)
+                        if (List[pivot.LeftChild].Key >= pivot.Key || MaxSubtree(List[pivot.LeftChild]) >= pivot.Key)
                             return false;
                         else
                             inOrderStack.Push(List[pivot.LeftChild]);
@@ -97,6 +97,22 @@ namespace A11
             }
             Reset();
             return true;
+        }
+        public long MaxSubtree(Node vertex)
+        {
+            Node pivot = vertex;
+            while (pivot.RightChild != -1)
+                pivot = List[pivot.RightChild];
+            return pivot.Key;
+        }
+        public long MinSubtree(Node vertex)
+        {
+            Node pivot = vertex;
+            while (pivot.LeftChild != -1)
+            {
+                pivot = List[pivot.LeftChild];
+            }
+            return pivot.Key;
         }
         public long[] PreOrder()
         {

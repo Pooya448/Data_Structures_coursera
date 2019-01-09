@@ -61,10 +61,6 @@ namespace A11
         {
             long i = Convert(long.Parse(arg));
             tree.Delete(i);
-            //int idx = Data.BinarySearch(i);
-            //if (idx >= 0)
-            //    Data.RemoveAt(idx);
-
             return null;
         }
 
@@ -73,44 +69,24 @@ namespace A11
             long i = Convert(int.Parse(arg));
             var temp = tree.Find(i);
             if (temp == null)
-            {
                 return "Not found";
-            }
             if (temp.Key == i)
-            {
                 return "Found";
-            }
             else
                 return "Not found";
-            //int idx = Data.BinarySearch(i);
-            //return idx < 0 ?
-            //    "Not found" : "Found";
         }
 
         private string Sum(string arg, SplayTree tree)
         {
+            
             var toks = arg.Split();
             long l = Convert(long.Parse(toks[0]));
             long r = Convert(long.Parse(toks[1]));
 
-            l = Data.BinarySearch(l);
-            if (l < 0)
-                l = ~l;
+            long result = tree.RangeSum(l, r);
+            X = result;
 
-            r = Data.BinarySearch(r);
-            if (r < 0)
-                r = (~r -1); 
-            // If not ~r will point to a position with
-            // a larger number. So we should not include 
-            // that position in our search.
-
-            long sum = 0;
-            for (int i = (int)l; i <= r && i < Data.Count; i++)
-                sum += Data[i];
-
-            X = sum;
-
-            return sum.ToString();
+            return result.ToString();
         }
     }
 }
