@@ -12,7 +12,7 @@ namespace A11.Tests
     [TestClass()]
     public class GradedTests
     {
-        [TestMethod()]
+        [TestMethod(),Timeout(12000)]
         [DeploymentItem("TestData", "A11_TestData")]
         public void SolveTest()
         {
